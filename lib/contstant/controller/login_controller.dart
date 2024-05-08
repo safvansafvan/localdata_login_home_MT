@@ -17,7 +17,7 @@ class AuthCtrl extends GetxController {
   String phone = '';
   String profession = '';
 
-  bool isOb = false;
+  bool isOb = true;
   bool isLogin = false;
   String? dropDownSelected;
 
@@ -28,6 +28,11 @@ class AuthCtrl extends GetxController {
 
   void isLoginState() {
     isLogin = !isLogin;
+    update();
+  }
+
+  void loginState() {
+    isLogin = false;
     update();
   }
 
@@ -51,6 +56,7 @@ class AuthCtrl extends GetxController {
     log(passwordCtrl.text);
     if (email == emailCtrl.text.trim() &&
         password == passwordCtrl.text.trim()) {
+      clearCtrl();
       await Get.offAll(() => const HomeView(),
           curve: Curves.easeInOut,
           duration: const Duration(milliseconds: 300),
@@ -66,7 +72,7 @@ class AuthCtrl extends GetxController {
     StorageUtil().insertData('password', passwordCtrl.text.trim());
     StorageUtil().insertData('phone', phoneCtrl.text.trim());
     StorageUtil().insertData('profession', dropDownSelected);
-
+    clearCtrl();
     await Get.offAll(() => const HomeView(),
         curve: Curves.easeInOut,
         duration: const Duration(milliseconds: 300),
