@@ -34,10 +34,11 @@ class _SplashViewState extends State<SplashView> {
 
   Future<void> _handleNextScreen() async {
     await Future.delayed(const Duration(seconds: 2)).then(
-      (value) => Get.to(
+      (value) async => await Get.to(
         () => const LoginView(),
         curve: Curves.easeInOut,
-        duration: const Duration(microseconds: 500),
+        duration: const Duration(milliseconds: 200),
+        transition: Transition.zoom,
       ),
     );
   }
