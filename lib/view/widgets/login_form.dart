@@ -6,20 +6,26 @@ import 'package:localdataloginandhome/contstant/const.dart';
 import 'package:localdataloginandhome/contstant/controller/login_controller.dart';
 
 class LoginFrom extends StatelessWidget {
-  const LoginFrom({
-    super.key,
-    required this.label,
-    required this.controller,
-    required this.prefixIcon,
-    this.inputType,
-    this.isUsername = false,
-    this.isPassword = false,
-  });
+  const LoginFrom(
+      {super.key,
+      required this.label,
+      required this.controller,
+      required this.prefixIcon,
+      this.inputType,
+      this.isUsername = false,
+      this.isPassword = false,
+      this.isconformPassword = false,
+      this.isname = false,
+      this.isnumber = false});
 
   final TextEditingController controller;
   final String label;
   final bool isPassword;
   final bool isUsername;
+  final bool isname;
+  final bool isconformPassword;
+  final bool isnumber;
+
   final IconData prefixIcon;
   final TextInputType? inputType;
 
@@ -87,6 +93,34 @@ class LoginFrom extends StatelessWidget {
                 }
                 if (!EmailValidator.validate(value)) {
                   return 'Enter Valid Email';
+                }
+              }
+              if (isconformPassword) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Passwor';
+                }
+                if (value.length < 7) {
+                  return 'Minimum 7 Letters';
+                }
+                if (loginCtrl.passwordCtrl.text !=
+                    loginCtrl.conformpasswordCtrl.text) {
+                  return 'Password Incorrect';
+                }
+              }
+              if (isname) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Name';
+                }
+                if (value.length < 4) {
+                  return 'Enter Valid Name';
+                }
+              }
+              if (isnumber) {
+                if (value == null || value.isEmpty) {
+                  return 'Enter Name';
+                }
+                if (value.length != 10) {
+                  return 'Enter Valid Number';
                 }
               }
 

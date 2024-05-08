@@ -1,6 +1,7 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:localdataloginandhome/contstant/local_storage.dart';
 import 'package:localdataloginandhome/view/home/home.dart';
 import 'package:localdataloginandhome/view/widgets/toast.dart';
 
@@ -10,13 +11,15 @@ class AuthCtrl extends GetxController {
   TextEditingController conformpasswordCtrl = TextEditingController();
   TextEditingController nameCtrl = TextEditingController();
   TextEditingController phoneCtrl = TextEditingController();
+  String email = '';
+  String password = '';
+  String name = '';
+  String phone = '';
+  String profession = '';
 
   bool isOb = false;
   bool isLogin = false;
   String? dropDownSelected;
-
-  String email = 's@gmail.com';
-  String password = '12345678';
 
   void updateIsLoginOb() {
     isOb = !isOb;
@@ -50,10 +53,32 @@ class AuthCtrl extends GetxController {
         password == passwordCtrl.text.trim()) {
       await Get.offAll(() => const HomeView(),
           curve: Curves.easeInOut,
-          duration: const Duration(milliseconds: 200),
-          transition: Transition.zoom);
+          duration: const Duration(milliseconds: 300),
+          transition: Transition.cupertino);
     } else {
-      messagePopUp('Wrong Email Or Password');
+      messagePopUp('Invalid Credential');
     }
+  }
+
+  Future<void> saveUserDatas() async {
+    StorageUtil().insertData('name', nameCtrl.text.trim());
+    StorageUtil().insertData('email', emailCtrl.text.trim());
+    StorageUtil().insertData('password', passwordCtrl.text.trim());
+    StorageUtil().insertData('phone', phoneCtrl.text.trim());
+    StorageUtil().insertData('profession', dropDownSelected);
+
+    await Get.offAll(() => const HomeView(),
+        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 300),
+        transition: Transition.cupertino);
+  }
+
+  void getUserDatas() {
+    name = StorageUtil().readData('name') ?? "";
+    email = StorageUtil().readData('email') ?? "";
+    password = StorageUtil().readData('password') ?? '';
+    phone = StorageUtil().readData('phone') ?? "";
+    profession = StorageUtil().readData('profession') ?? "";
+    update();
   }
 }

@@ -5,8 +5,20 @@ import 'package:localdataloginandhome/contstant/controller/login_controller.dart
 import 'package:localdataloginandhome/view/widgets/login_wid.dart';
 import 'package:localdataloginandhome/view/widgets/signup_wid.dart';
 
-class LoginView extends StatelessWidget {
+class LoginView extends StatefulWidget {
   const LoginView({super.key});
+
+  @override
+  State<LoginView> createState() => _LoginViewState();
+}
+
+class _LoginViewState extends State<LoginView> {
+  @override
+  void initState() {
+    final ac = Get.find<AuthCtrl>();
+    ac.getUserDatas();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {

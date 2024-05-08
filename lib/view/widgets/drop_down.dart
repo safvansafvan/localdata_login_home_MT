@@ -28,7 +28,7 @@ class _CommonDropDownState extends State<CommonDropDown> {
               hint: Text(
                 widget.hintText,
                 style: kTextStyle(
-                    fontWeight: FontWeight.w500, size: 15, color: blackClr),
+                    fontWeight: FontWeight.w500, size: 15, color: greyClr),
                 overflow: TextOverflow.ellipsis,
               ),
               items: widget.list!

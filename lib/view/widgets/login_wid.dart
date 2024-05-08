@@ -9,6 +9,7 @@ class LoginWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final formKey = GlobalKey<FormState>();
     final lCtrl = Get.find<AuthCtrl>();
     return Padding(
       padding: const EdgeInsets.only(top: 25),
@@ -19,56 +20,64 @@ class LoginWidget extends StatelessWidget {
         duration: const Duration(milliseconds: 500),
         child: Padding(
           padding: const EdgeInsets.symmetric(vertical: 20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              LoginFrom(
-                label: 'Email',
-                prefixIcon: Icons.email,
-                controller: lCtrl.emailCtrl,
-                inputType: TextInputType.name,
-              ),
-              LoginFrom(
-                label: 'Password',
-                prefixIcon: Icons.key,
-                controller: lCtrl.passwordCtrl,
-                inputType: TextInputType.name,
-                isPassword: true,
-              ),
-              const Align(
-                alignment: Alignment.centerRight,
-                child: Padding(
-                  padding: EdgeInsets.only(right: 20),
-                  child: Text('Forgot password ?'),
+          child: Form(
+            key: formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                LoginFrom(
+                  label: 'Email',
+                  prefixIcon: Icons.email,
+                  controller: lCtrl.emailCtrl,
+                  inputType: TextInputType.name,
+                  isUsername: true,
                 ),
-              ),
-              Padding(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
-                child: SizedBox(
-                  width: double.infinity,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: blackClr,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(10.0),
+                LoginFrom(
+                  label: 'Password',
+                  prefixIcon: Icons.key,
+                  controller: lCtrl.passwordCtrl,
+                  inputType: TextInputType.name,
+                  isPassword: true,
+                ),
+                const Align(
+                  alignment: Alignment.centerRight,
+                  child: Padding(
+                    padding: EdgeInsets.only(right: 20),
+                    child: Text('Forgot password ?'),
+                  ),
+                ),
+                Padding(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
+                  child: SizedBox(
+                    width: double.infinity,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        backgroundColor: blackClr,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10.0),
+                        ),
                       ),
-                    ),
-                    onPressed: () {},
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(vertical: 10),
-                      child: Text(
-                        'LOGIN',
-                        style: kTextStyle(
-                            fontWeight: FontWeight.w600,
-                            size: 16,
-                            color: whiteClr),
+                      onPressed: () async {
+                        if (formKey.currentState!.validate()) {
+                          await lCtrl.login(context);
+                        }
+                      },
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(vertical: 10),
+                        child: Text(
+                          'LOGIN',
+                          style: kTextStyle(
+                              fontWeight: FontWeight.w600,
+                              size: 16,
+                              color: whiteClr),
+                        ),
                       ),
                     ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
