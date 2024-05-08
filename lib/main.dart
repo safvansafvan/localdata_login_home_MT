@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:localdataloginandhome/contstant/controller/base_controller.dart';
 import 'package:localdataloginandhome/contstant/controller/login_controller.dart';
 import 'package:localdataloginandhome/view/splash.dart';
 
@@ -16,6 +17,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(AuthCtrl());
+    Get.put(BaseCtrl());
     return GetMaterialApp(
       title: 'local data login and home api',
       theme: ThemeData(
