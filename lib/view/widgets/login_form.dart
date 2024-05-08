@@ -2,7 +2,6 @@ import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
-import 'package:localdataloginandhome/contstant/const.dart';
 import 'package:localdataloginandhome/contstant/controller/login_controller.dart';
 
 class LoginFrom extends StatelessWidget {
@@ -36,6 +35,12 @@ class LoginFrom extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 22, vertical: 5),
         child: Center(
           child: TextFormField(
+            inputFormatters: isnumber == true
+                ? [
+                    FilteringTextInputFormatter.digitsOnly,
+                    LengthLimitingTextInputFormatter(10)
+                  ]
+                : [],
             keyboardType: inputType,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             controller: controller,
@@ -44,16 +49,18 @@ class LoginFrom extends StatelessWidget {
             maxLengthEnforcement: MaxLengthEnforcement.none,
             decoration: InputDecoration(
               prefixIcon: Icon(prefixIcon),
-              suffixIcon: isPassword
-                  ? IconButton(
-                      onPressed: () {
-                        loginCtrl.updateIsLoginOb();
-                      },
-                      icon: Icon(
-                        loginCtrl.isOb
-                            ? Icons.visibility_off
-                            : Icons.visibility,
-                        color: blackClr,
+              suffixIcon: isPassword == true
+                  ? Padding(
+                      padding: const EdgeInsets.only(right: 5),
+                      child: IconButton(
+                        onPressed: () {
+                          loginCtrl.updateIsLoginOb();
+                        },
+                        icon: Icon(
+                          loginCtrl.isOb
+                              ? Icons.visibility_off
+                              : Icons.visibility,
+                        ),
                       ),
                     )
                   : null,

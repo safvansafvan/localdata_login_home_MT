@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:localdataloginandhome/contstant/const.dart';
+import 'package:localdataloginandhome/contstant/controller/login_controller.dart';
 import 'package:localdataloginandhome/view/auth/login.dart';
 
 class DrawerWidget extends StatelessWidget {
@@ -8,6 +9,7 @@ class DrawerWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ac = Get.find<AuthCtrl>();
     return Drawer(
       child: SafeArea(
         child: Padding(
@@ -44,6 +46,8 @@ class DrawerWidget extends StatelessWidget {
               ListTile(
                 onTap: () {
                   Get.offAll(() => const LoginView());
+                  ac.getUserDatas();
+                  ac.loginState();
                 },
                 title: Text(
                   'Logout',
