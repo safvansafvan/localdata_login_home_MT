@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:localdataloginandhome/contstant/const.dart';
-import 'package:localdataloginandhome/view/auth/login.dart';
 import 'package:localdataloginandhome/view/home/home.dart';
 import 'package:lottie/lottie.dart';
 
@@ -34,12 +33,13 @@ class _SplashViewState extends State<SplashView> {
   }
 
   Future<void> _handleNextScreen() async {
-    await Future.delayed(const Duration(seconds: 2))
-        .then((value) async => await Get.to(
-              () => const HomeView(),
-              curve: Curves.easeInOut,
-              duration: const Duration(milliseconds: 200),
-              transition: Transition.zoom,
-            ));
+    await Future.delayed(const Duration(seconds: 2)).then(
+      (value) async => await Get.to(
+        () => const HomeView(),
+        curve: Curves.easeInOut,
+        duration: const Duration(milliseconds: 200),
+        transition: Transition.zoom,
+      ),
+    );
   }
 }
